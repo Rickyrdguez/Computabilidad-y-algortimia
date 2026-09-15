@@ -1,3 +1,17 @@
+// Universidad de La Laguna
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
+// Asignatura: Computabilidad y Algoritmia
+// Curso: 2º
+// Pr´actica 1: Contenedores asociativos
+// Autor: Ricardo Jesús Rodríguez Pérez
+// Correo: alu0101797557@ull.edu.es
+// Fecha: 13/09/2023
+// Archivo calificaciones.cpp: funciones de la clase
+//
+// Historial de revisiones
+// 12/09/2023 - Creación (primera versió) del código
+
 #include "calificaciones.h"
 
 #include <fstream>
@@ -49,10 +63,31 @@ void Calificaciones::LeerArchivo(const std::string& nombre_fichero) {
 }
 
 /**
- * @brief Función encargada de mostrar por pantalla el usuario junto con la nota más alta al lado
+ * @brief Función encargada de mostrar por pantalla el usuario junto con la nota
+ * más alta al lado
  */
 void Calificaciones::MostrarPorPantalla() const {
   for (const auto& elemento : calificaciones_) {
     std::cout << elemento.first << " " << elemento.second << std::endl;
+  }
+}
+
+/**
+ * @brief Función encargada de mostrar por pantalla una breve información sobre
+ * como usar el programa
+ */
+void Calificaciones::ExplicacionDelPrograma(
+    const std::string& entrada_del_programa) const {
+  if (entrada_del_programa == "--help") {
+    std::cout << "Uso: p01_single_grades <fichero.txt>\n\n";
+    std::cout << "Este programa lee un fichero de calificaciones y muestra,\n";
+    std::cout << "para cada estudiante, la nota mas alta obtenida.\n\n";
+    std::cout
+        << "Formato del fichero de entrada (una linea por calificacion):\n";
+    std::cout << "  aluXXXXXXXXXX nota\n";
+    std::cout << "Ejemplo:\n";
+    std::cout << "  alu0122334455 5.25\n";
+
+    return;
   }
 }
