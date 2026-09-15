@@ -4,7 +4,6 @@
 !*.h
 !*.hpp
 !Makefile
-!*.txt
 !*.md
 !*.gitignore
 !*/
