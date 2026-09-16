@@ -86,8 +86,39 @@ void Calificaciones::ExplicacionDelPrograma(
         << "Formato del fichero de entrada (una linea por calificacion):\n";
     std::cout << "  aluXXXXXXXXXX nota\n";
     std::cout << "Ejemplo:\n";
-    std::cout << "  alu0122334455 5.25\n";
+    std::cout << "  alu0122334455 5.25\n\n";
+    std::cout << "Con la entrada <programa> <fichero> <--search> <usuario>, "
+                 "encontrará la nota de un usuario en concreto\n";
 
     return;
   }
+}
+
+
+// Sesión de práctica
+
+/**
+ * @brief Función que dado un usuario busca la nota de este
+ *
+ * @param usuario String que contiene el nombre de usuario a encontrar
+ */
+void Calificaciones::ConsultaAlumnoConcreto(const std::string& usuario) const {
+  auto it = calificaciones_.find(usuario);
+
+  std::cout << usuario << " " << it->second << "\n";
+}
+
+/**
+ * @brief Función que dado un alumno comprueba si este existe
+ * 
+ * @param usuario String que contiene el nombre de usuario
+ */
+bool Calificaciones::ComprobarExisteEstudiante(const std::string& usuario) {
+  auto it = calificaciones_.find(usuario);
+
+  if (it == calificaciones_.end()) {
+    return false;
+  }
+
+  return true;
 }

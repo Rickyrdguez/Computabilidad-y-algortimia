@@ -19,7 +19,7 @@
 #include "calificacion_multiple.h"
 
 int main(int argc, char* argv[]) {
-  if (argc != 2) {
+  if (argc < 2) {
     std::cout << "Modo de empleo: " << argv[0] << " <nombre_del_archivo.txt>\n";
     std::cout << "Pruebe '" << argv[0] << " --help' para mas informacion.\n";
     return -1;

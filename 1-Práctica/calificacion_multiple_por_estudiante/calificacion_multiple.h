@@ -25,6 +25,12 @@ class CalificacionMultiple {
   void ProcesaDatos(const std::string& usuario, double notas);
   void GuiaDelPrograma(const std::string& entrada_del_programa) const;
 
+  // Estudio para la sesión de evaluación
+  void EncontrarNotaMaxima(const std::string& usuario) const;
+  void EncontrarNotaMinima(const std::string& usuario) const;
+  void CalcularNotaMedia(const std::string& usuario) const;
+  void BorrarUsuario(const std::string& usuario);
+
  private:
   std::multimap<std::string, double> calificaciones_;
 };

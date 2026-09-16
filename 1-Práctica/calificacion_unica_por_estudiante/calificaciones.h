@@ -25,6 +25,10 @@ class Calificaciones {
   void MostrarPorPantalla() const;
   void ExplicacionDelPrograma(const std::string& entrada_del_programa) const;
 
+  // Sesión de práctica
+  void ConsultaAlumnoConcreto(const std::string& usuario) const;
+  bool ComprobarExisteEstudiante(const std::string& usuario);
+
  private:
   std::map<std::string, double> calificaciones_;
 };
