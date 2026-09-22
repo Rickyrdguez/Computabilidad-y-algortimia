@@ -1,18 +1,18 @@
-/**
- *   ;
-
-  ;
-  Lenguaje ConjuntoSufijos() const;
-  Lenguaje PosiblesSubcadenas() const;
-
-  private:
-  std::string cadena_;
-};
- */
-
-#include <iostream>
-#include <set>
-#include <string>
+// Universidad de La Laguna
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
+// Asignatura: Computabilidad y Algoritmia
+// Curso: 2º
+// Práctica 2: Cadenas y lenguajes
+// Autor: Ricardo Jesús Rodríguez Pérez
+// Correo: alu0101797557@ull.edu.es
+// Fecha: 16/09/2026
+//
+// Archivo cadena.cpp: implementación de los métodos de la clase Cadena.
+//
+// Historial de revisiones
+// 16/09/2026 - Creación (primera versión) del código
+// 21/09/2026 - Última modificación
 
 #include "p02_string.h"
 
@@ -124,7 +124,6 @@ Lenguaje Cadena::ConjuntoSufijos() const {
  * @param alfabeto Alfabeto de la cadena
  */
 bool Cadena::Validacion(const Alfabeto& alfabeto) const {
-
   for (char caracter : cadena_) {
     if (!alfabeto.ComprobarPertenceAlfabeto(caracter)) {
       return false;
@@ -133,3 +132,99 @@ bool Cadena::Validacion(const Alfabeto& alfabeto) const {
 
   return true;
 }
+
+// Estudio para la sesión de evaluación
+
+/**
+ * @brief Sobrecarga del operador de comparacion '=='
+ *
+ * @param cadena_1 Primer objeto de la cadena a concatenar
+ * @param cadena_2 Segundo objeto de la cadena a concatenar
+ */
+bool operator==(const Cadena& cadena_1, const Cadena& cadena_2) {
+  if (cadena_1.cadena_.size() != cadena_2.cadena_.size()) {
+    return false;
+  }
+  for (int i{0}; i < static_cast<int>(cadena_1.cadena_.size()); ++i) {
+    if (cadena_1.cadena_[i] != cadena_2.cadena_[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * @brief Sobrecarga del operador de suma de la clase cadena
+ *
+ * @param cadena_1 Primer objeto de la cadena a concatenar
+ * @param cadena_2 Segundo objeto de la cadena a concatenar
+ */
+Cadena operator+(const Cadena& cadena_1, const Cadena& cadena_2) {
+  if (cadena_1.cadena_.empty()) {
+    return cadena_2;
+  }
+  if (cadena_2.cadena_.empty()) {
+    return cadena_1;
+  }
+
+  return Cadena{cadena_1.cadena_ + cadena_2.cadena_};
+}
+
+/**
+ * @brief Funcion encargada de comprobar que una cadena es subcadena de otra
+ *
+ * @param subcadena Objeto cadena a comprar si es subcadena de otra
+ */
+bool Cadena::EsSubcadena(const Cadena& subcadena) const {
+  if (subcadena.cadena_ == "") return true;
+  return cadena_.find(subcadena.cadena_) != std::string::npos;
+}
+
+/**
+ * Sobrecarga del operador de potencia '^' para devolver la concatenación
+ * sucesiva de la cadena n veces
+ *
+ * @param cadena_1 Cadena a concatenar
+ * @param exponente Entero que representa el número de veces que se concatena la
+ * cadena
+ */
+Cadena operator^(const Cadena& cadena_1, int exponente) {
+  if (exponente <= 0) {
+    return Cadena{""};
+  }
+
+  if (exponente == 1 || cadena_1.cadena_ == "") {
+    return cadena_1;
+  }
+
+  std::string resultado{};
+
+  for (int i{1}; i <= exponente; ++i) {
+    resultado += cadena_1.cadena_;
+  }
+
+  return resultado;
+}
+
+/**
+ * @brief Funcion que dado una cadena comprueba si esta es palíndroma o no
+ */
+bool Cadena::EsPalindromo() const {
+  int j = static_cast<int>(cadena_.size()) - 1;
+
+  for (int i{0}; i < (static_cast<int>(cadena_.size())); ++i) {
+    if (cadena_[i] != cadena_[j]) {
+      return false;
+    }
+    j -= 1;
+  }
+  return true;
+}
+
+/**
+ * @brief Sobrecarga del operador [] con el objetivo de acceder a los elementos
+ * de una posicion de una cadena
+ *
+ * @param posicion Entero que nos dice a que posicion queremos acceder
+ */
+char Cadena::operator[](int posicion) const { return cadena_[posicion]; }

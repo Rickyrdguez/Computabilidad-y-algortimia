@@ -1,6 +1,20 @@
-#include <fstream>
-#include <iostream>
-#include <sstream>
+// Universidad de La Laguna
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
+// Asignatura: Computabilidad y Algoritmia
+// Curso: 2º
+// Práctica 2: Cadenas y lenguajes
+// Autor: Ricardo Jesús Rodríguez Pérez
+// Correo: alu0101797557@ull.edu.es
+// Fecha: 16/09/2026
+//
+// Archivo p02_string.cpp: programa cliente. Contiene la función main que lee
+// el fichero de entrada, aplica la operación indicada por el opcode a cada
+// cadena y escribe el resultado en el fichero de salida.
+//
+// Historial de revisiones
+// 16/09/2026 - Creación (primera versión) del código
+// 21/09/2026 - Última modificación
 
 #include "p02_string.h"
 
@@ -10,9 +24,9 @@ int main(int argc, char* argv[]) {
     return 0;
   }
 
-  if (argc != 4) {
+  if (argc <= 3 || argc > 5) {
     std::cout << R"(
-    Modo de empleo: ./p02_strings <filein.txt> <fileout.txt> <opcode>
+    Modo de empleo: ./p02_strings <filein.txt> <fileout.txt> <opcode> <palabra>
     Pruebe: './p02_strings --help' para más información
     )";
     return 0;
@@ -63,8 +77,16 @@ int main(int argc, char* argv[]) {
           break;
 
         case 6:
-          fichero_salida << (cadena.Validacion(alfabeto) ? "OK" : "ERROR") << "\n";
+          fichero_salida << (cadena.Validacion(alfabeto) ? "OK" : "ERROR")
+                         << "\n";
           break;
+
+        case 7: {
+          std::string cadena_introducida{argv[4]};
+          fichero_salida << cadena << ": " << cadena + cadena_introducida
+                         << "\n";
+          break;
+        }
 
         default:
           std::cout << "Error: Código de operación (opcode) no válido.\n";

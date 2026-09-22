@@ -1,20 +1,18 @@
 // Universidad de La Laguna
-// Escuela Superior de Ingenierı́a y Tecnologı́a
-// Grado en Ingenierı́a Informática
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
 // Práctica 2: Cadenas y lenguajes
 // Autor: Ricardo Jesús Rodríguez Pérez
 // Correo: alu0101797557@ull.edu.es
-// Fecha: 16/09/2025
-// Archivo alfabeto.cpp: programa implementación de los métodos de la clase
-// alfabeto.h
+// Fecha: 16/09/2026
 //
-// 18/09/2026 - Creación (primera versión) del código
-
-#include <iostream>
-#include <set>
-#include <string>
+// Archivo alfabeto.cpp: implementación de los métodos de la clase Alfabeto.
+//
+// Historial de revisiones
+// 16/09/2026 - Creación (primera versión) del código
+// 21/09/2026 - Última modificación
 
 #include "p02_string.h"
 
@@ -116,4 +114,32 @@ std::istream& operator>>(std::istream& is, Alfabeto& alfabeto) {
   }
 
   return is;
+}
+
+// Estudio para la sesión práctica
+
+/**
+ * @brief Sobrecarga del operador '+' que permite la union de dos alfabetos
+ *
+ * @param alfabeto_1 Primer objeto alfabeto
+ * @param alfabeto_2 Segundo objeto alfabeto
+ */
+Alfabeto operator+(const Alfabeto& alfabeto_1, const Alfabeto& alfabeto_2) {
+  if (alfabeto_1.alfabeto_.empty()) {
+    return alfabeto_2;
+  }
+  if (alfabeto_2.alfabeto_.empty()) {
+    return alfabeto_1;
+  }
+
+  Alfabeto resultado;
+
+  for (char caracter : alfabeto_1.alfabeto_) {
+    resultado.alfabeto_.insert(caracter);
+  }
+
+  for (char caracter : alfabeto_2.alfabeto_) {
+    resultado.alfabeto_.insert(caracter);
+  }
+  return resultado;
 }
