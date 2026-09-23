@@ -110,3 +110,22 @@ Lenguaje Lenguaje::Union(const Lenguaje& lenguaje) const {
 
   return union_lenguajes;
 }
+
+/**
+ * @brief Función que comprueba si un lenguaje es sublenguaje de otro
+ *
+ * @param lenguaje Lenguaje distinto del de la clase
+ */
+bool Lenguaje::EsSublenguaje(const Lenguaje& lenguaje) const {
+  if (this->lenguaje_.empty()) {
+    return true;
+  }
+
+  for (const Cadena& cadena : this->lenguaje_) {
+    if (lenguaje.lenguaje_.find(cadena) == lenguaje.lenguaje_.end()) {
+      return false;
+    }
+  }
+
+  return true;
+}

@@ -42,6 +42,8 @@ void FuncionamientoDelPrograma() {
     '4' : Prefijos    - Genera y devuelve todos los prefijos posibles de la cadena.
     '5' : Sufijos     - Genera y devuelve todos los sufijos posibles de la cadena.
     '6' : Validación  - Comprueba si la cadena está en el afabeto (OK/ERROR).
+    '7' : Exponente   - Dado un número devuelve la concatenación de una cadena n veces.
+                      - la entrada debe de ser ./p02_strings <fichero_entrada.txt> <fichero_salida.txt> <opcode> <exponente>
 
   )";
 }

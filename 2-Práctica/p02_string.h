@@ -70,11 +70,13 @@ class Cadena {
 
   // Estudio para la sesión de evaluación
   friend bool operator==(const Cadena& cadena_1, const Cadena& cadena_2);
-  friend Cadena operator+(const Cadena& cadena_1, const Cadena& cadena_2);
   bool EsSubcadena(const Cadena& subcadena) const;
-  friend Cadena operator^(const Cadena& cadena_1, int exponente);
   bool EsPalindromo() const;
   char operator[](int posicion) const;
+
+  // Sesión de evaluación
+  friend Cadena operator+(const Cadena& cadena_1, const Cadena& cadena_2);
+  friend Cadena operator^(const Cadena& cadena_1, int exponente);
 
  private:
   std::string cadena_;
@@ -98,6 +100,7 @@ class Lenguaje {
   Lenguaje Union(const Lenguaje& lenguaje) const;
   Lenguaje CierreKleene(int max_potencia) const;
   Lenguaje CierrePositivo(int max_potencia) const;
+  bool EsSublenguaje(const Lenguaje& lenguaje) const;
 
  private:
   std::set<Cadena> lenguaje_;

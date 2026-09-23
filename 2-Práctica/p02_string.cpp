@@ -82,9 +82,15 @@ int main(int argc, char* argv[]) {
           break;
 
         case 7: {
-          std::string cadena_introducida{argv[4]};
-          fichero_salida << cadena << ": " << cadena + cadena_introducida
-                         << "\n";
+          if (argc != 5) {
+            std::cerr << "El opcode 7 necesita un número como exponente\n";
+            return -1;
+          }
+          
+          int exponente{std::stoi(argv[4])};
+          Cadena resultado = cadena ^ exponente;
+
+          fichero_salida << cadena << ": " << resultado << "\n";
           break;
         }
 

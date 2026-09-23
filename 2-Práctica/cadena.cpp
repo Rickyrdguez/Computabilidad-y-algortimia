@@ -154,6 +154,43 @@ bool operator==(const Cadena& cadena_1, const Cadena& cadena_2) {
 }
 
 /**
+ * @brief Funcion encargada de comprobar que una cadena es subcadena de otra
+ *
+ * @param subcadena Objeto cadena a comprar si es subcadena de otra
+ */
+bool Cadena::EsSubcadena(const Cadena& subcadena) const {
+  if (subcadena.cadena_ == "") return true;
+  return cadena_.find(subcadena.cadena_) != std::string::npos;
+}
+
+/**
+ * @brief Funcion que dado una cadena comprueba si esta es palíndroma o no
+ */
+bool Cadena::EsPalindromo() const {
+  int j = static_cast<int>(cadena_.size()) - 1;
+
+  for (int i{0}; i < (static_cast<int>(cadena_.size())); ++i) {
+    if (cadena_[i] != cadena_[j]) {
+      return false;
+    }
+    j -= 1;
+  }
+  return true;
+}
+
+/**
+ * @brief Sobrecarga del operador [] con el objetivo de acceder a los elementos
+ * de una posicion de una cadena
+ *
+ * @param posicion Entero que nos dice a que posicion queremos acceder
+ */
+char Cadena::operator[](int posicion) const { return cadena_[posicion]; }
+
+///////////////////////////////////////////////////////////////////////////////
+
+// SESIÓN DE EVALUACIÓN
+
+/**
  * @brief Sobrecarga del operador de suma de la clase cadena
  *
  * @param cadena_1 Primer objeto de la cadena a concatenar
@@ -168,16 +205,6 @@ Cadena operator+(const Cadena& cadena_1, const Cadena& cadena_2) {
   }
 
   return Cadena{cadena_1.cadena_ + cadena_2.cadena_};
-}
-
-/**
- * @brief Funcion encargada de comprobar que una cadena es subcadena de otra
- *
- * @param subcadena Objeto cadena a comprar si es subcadena de otra
- */
-bool Cadena::EsSubcadena(const Cadena& subcadena) const {
-  if (subcadena.cadena_ == "") return true;
-  return cadena_.find(subcadena.cadena_) != std::string::npos;
 }
 
 /**
@@ -205,26 +232,3 @@ Cadena operator^(const Cadena& cadena_1, int exponente) {
 
   return resultado;
 }
-
-/**
- * @brief Funcion que dado una cadena comprueba si esta es palíndroma o no
- */
-bool Cadena::EsPalindromo() const {
-  int j = static_cast<int>(cadena_.size()) - 1;
-
-  for (int i{0}; i < (static_cast<int>(cadena_.size())); ++i) {
-    if (cadena_[i] != cadena_[j]) {
-      return false;
-    }
-    j -= 1;
-  }
-  return true;
-}
-
-/**
- * @brief Sobrecarga del operador [] con el objetivo de acceder a los elementos
- * de una posicion de una cadena
- *
- * @param posicion Entero que nos dice a que posicion queremos acceder
- */
-char Cadena::operator[](int posicion) const { return cadena_[posicion]; }
