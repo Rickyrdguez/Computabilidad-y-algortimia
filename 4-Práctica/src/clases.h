@@ -13,7 +13,8 @@
 //
 // Historial de revisiones
 // 05/10/2026 - Creación (primera versión) del código
-// 05/10/2026 - Última modificación
+// 07/10/2026 - Última modificación
+// Resaltando lo siguiente: Sesión de evaluación . Encontrará las modificaciones
 
 #ifndef CLASES_H_
 #define CLASES_H_
@@ -110,6 +111,16 @@ std::ostream& operator<<(std::ostream& os, const Comment& comment);
 
 ///////////////////////////////////////////////////////////////////////////////
 
+// Sesión de evaluación
+
+struct Link {
+  int linea;
+  std::string protocolo;
+  std::string texto;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+
 class HtmlDocument {
  public:
   // Constructor
@@ -133,6 +144,9 @@ class HtmlDocument {
   void AniadirEtiquetas(const Tag& etiqueta);
   void AniadirComentarios(const Comment& comentario);
 
+  // Sesión de evaluación
+  void AniadirEnlace(const Link& enlace);
+
  private:
   std::vector<Tag> etiquetas_;
   std::vector<Comment> comentarios_;
@@ -141,6 +155,9 @@ class HtmlDocument {
   bool body_;
   std::string doctype_;
   std::string nombre_fichero_;
+
+  // Sesión de evaluación
+  std::vector<Link> enlaces_;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -174,6 +191,9 @@ class HtmlAnalyzer {
   void DetectarDoctype(const std::string& contenido, int numero_linea);
   void DetectarEtiquetas(const std::string& contenido, int numero_linea);
   void DetectarComentario(const std::string& contenido, int numero_linea);
+
+  // Sesión de evaluación
+  void DetectarEnlaces(const std::string& contenido, int numero_linea);
 };
 
 #endif  // CLASES_H_

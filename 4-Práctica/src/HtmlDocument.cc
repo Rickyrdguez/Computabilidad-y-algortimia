@@ -13,7 +13,8 @@
 //
 // Historial de revisiones
 // 05/10/2026 - Creación (primera versión) del código
-// 05/10/2026 - Última modificación
+// 07/10/2026 - Última modificación
+// Resaltando lo siguiente: Sesión de evaluación . Encontrará las modificaciones
 
 #include "clases.h"
 
@@ -54,7 +55,8 @@ std::ostream& operator<<(std::ostream& os, const HtmlDocument& documento) {
   for (size_t i{0}; i < documento.etiquetas_.size(); ++i) {
     if (!documento.etiquetas_[i].DevolverLista().empty()) {
       os << documento.etiquetas_[i];
-      for (size_t j{0}; j < documento.etiquetas_[i].DevolverLista().size(); ++j) {
+      for (size_t j{0}; j < documento.etiquetas_[i].DevolverLista().size();
+           ++j) {
         os << documento.etiquetas_[i].DevolverLista()[j];
       }
       os << "\n";
@@ -65,8 +67,17 @@ std::ostream& operator<<(std::ostream& os, const HtmlDocument& documento) {
   for (size_t i{0}; i < documento.comentarios_.size(); ++i) {
     os << documento.comentarios_[i];
     if (i != (documento.comentarios_.size() - 1)) {
-      os << "\n";
+      os << "\n\n";
     }
+  }
+
+  // SESIÓN DE EVALUACIÓN
+
+  os << "\nLINKS:\n";
+  for (const Link& enlace : documento.enlaces_) {
+    os << "[Line " << enlace.linea << "]\n"
+       << "PROTOCOL: " << enlace.protocolo << "\n"
+       << "TEXT: " << enlace.texto << "\n";
   }
 
   return os;
@@ -86,8 +97,20 @@ void HtmlDocument::AniadirEtiquetas(const Tag& etiqueta) {
  * @brief Función encargada de añadir los comentarios al vector comentarios de
  * la clase html
  *
- * @param comentarios Objeto de la clase Comment
+ * @param comSesión de evaluaciónentarios Objeto de la clase Comment
  */
 void HtmlDocument::AniadirComentarios(const Comment& comentario) {
   comentarios_.push_back(comentario);
+}
+
+// SESIÓN DE EVALUACIÓN
+
+/**
+ * @brief Función encargada de añadir los enlaces al vector enlaces de la
+ * clase html
+ *
+ * @param enlace Objeto de la clase Link
+ */
+void HtmlDocument::AniadirEnlace(const Link& enlace) {
+  enlaces_.push_back(enlace);
 }

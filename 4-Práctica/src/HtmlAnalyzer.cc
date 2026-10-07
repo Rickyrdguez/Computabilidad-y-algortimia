@@ -14,7 +14,8 @@
 //
 // Historial de revisiones
 // 05/10/2026 - Creación (primera versión) del código
-// 05/10/2026 - Última modificación
+// 07/10/2026 - Última modificación
+// Resaltando lo siguiente: Sesión de evaluación . Encontrará las modificaciones
 
 #include "clases.h"
 
@@ -24,7 +25,8 @@
  *
  * @param contenido String a analizar
  */
-void HtmlAnalyzer::DetectarDoctype(const std::string& contenido, int numero_linea) {
+void HtmlAnalyzer::DetectarDoctype(const std::string& contenido,
+                                   int numero_linea) {
   std::regex expresion{"<!DOCTYPE html>"};
 
   if (std::regex_match(contenido, expresion)) {
@@ -112,6 +114,25 @@ void HtmlAnalyzer::DetectarComentario(const std::string& contenido,
   }
 }
 
+// SESIÓN DE EVALUACIÓN
+
+/**
+ * @brief Función encargada de detectar los enlaces y extraer su protocolo y
+ * su texto mediante grupos de captura
+ *
+ * @param contenido String a analizar
+ * @param numero_linea Número de línea donde aparece la etiqueta <a>
+ */
+void HtmlAnalyzer::DetectarEnlaces(const std::string& contenido,
+                                   int numero_linea) {
+  std::regex enlace{"<a\\s[^>]*href=\"(\\w+)://[^\"]*\"[^>]*>(.*?)</a>"};
+
+  for (std::sregex_iterator it{contenido.begin(), contenido.end(), enlace};
+       it != std::sregex_iterator{}; ++it) {
+    documento_.AniadirEnlace({numero_linea, (*it)[1].str(), (*it)[2].str()});
+  }
+}
+
 /**
  * @brief Función encargada de abrir el archivo y analizarlo
  */
@@ -130,5 +151,7 @@ void HtmlAnalyzer::Analizador() {
     DetectarDoctype(contenido, numero_linea);
     DetectarEtiquetas(contenido, numero_linea);
     DetectarComentario(contenido, numero_linea);
+    // Sesión de evaluación
+    DetectarEnlaces(contenido, numero_linea);
   }
 }
