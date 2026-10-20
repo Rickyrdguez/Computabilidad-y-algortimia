@@ -1,9 +1,12 @@
 *
+!*/
 !*.cc
 !*.cpp
 !*.h
 !*.hpp
 !Makefile
 !*.md
-!*.gitignore
-!*/
+!.gitignore
+!*.dfa
+!*.txt
+!*.pdf
