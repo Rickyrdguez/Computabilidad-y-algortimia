@@ -26,9 +26,9 @@ int main(int argc, char* argv[]) {
     return 0;
   }
 
-  if (argc != 3) {
+  if (argc != 3 && argc != 4) {
     MostrarUso();
-    return 1;
+    return -1;
   }
 
   std::string direccion_dfa{argv[1]};
@@ -40,14 +40,14 @@ int main(int argc, char* argv[]) {
     std::cerr
         << "ERROR: No se pudo abrir el fichero de especificación del DFA: "
         << direccion_dfa << "\n";
-    return 1;
+    return -1;
   }
 
   std::ifstream inp_txt(direccion_entrada);
   if (!inp_txt.is_open()) {
     std::cerr << "ERROR: No se pudo abrir el fichero de cadenas de entrada: "
               << direccion_entrada << "\n";
-    return 1;
+    return -1;
   }
 
   Automata automata;
@@ -56,14 +56,32 @@ int main(int argc, char* argv[]) {
   if (automata.getter_invalido()) {
     std::cerr << "ERROR: El autómata es inválido o no compatible. Se finaliza "
                  "la ejecución del programa.\n";
-    return 1;
+    return -1;
   }
 
   std::cout << automata;
 
+  if (argc == 4) {
+    int numero_n{0};
+
+    if (!(std::istringstream{argv[3]} >> numero_n) || numero_n < 0) {
+      std::cerr << "ERROR: n debe ser un número entero no negativo.\n";
+      return 1;
+    }
+
+    automata.GenerarCadenas(numero_n);
+    return 0;
+  }
+
+  if (!inp_txt.is_open()) {
+    std::cerr << "ERROR: No se pudo abrir el fichero de cadenas de entrada: "
+              << direccion_entrada << "\n";
+    return -1;
+  }
+
   std::string cadena;
-  while(std::getline(inp_txt, cadena)) {
-    if(!cadena.empty() && cadena.back() == '\r') {
+  while (std::getline(inp_txt, cadena)) {
+    if (!cadena.empty() && cadena.back() == '\r') {
       cadena.pop_back();
     }
 

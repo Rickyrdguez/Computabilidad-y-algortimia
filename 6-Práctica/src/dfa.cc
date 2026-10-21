@@ -288,7 +288,7 @@ std::istream& operator>>(std::istream& is, Automata& automata) {
  * @brief Muestra el modo correcto de ejecución del programa.
  */
 void MostrarUso() {
-  std::cout << "Modo de empleo: ./p06_DFA_simulator input.dfa input.txt\n"
+  std::cout << "Modo de empleo: ./p06_DFA_simulator input.dfa input.txt [n]\n"
             << "Pruebe './p06_DFA_simulator --help' para más información.\n";
 }
 
@@ -299,11 +299,14 @@ void MostrarAyuda() {
   std::cout
       << "Simulador de Autómatas Finitos Deterministas (DFA).\n\n"
       << "USO:\n"
-      << "  ./p06_DFA_simulator <input.dfa> <input.txt> \n\n"
+      << "  ./p06_DFA_simulator <input.dfa> <input.txt> [n]\n\n"
       << "PARÁMETROS:\n"
       << "  <input.dfa>  Fichero de texto con la especificación de un DFA.\n"
       << "  <input.txt>  Fichero de texto con una serie de cadenas (una por "
-         "línea) sobre el alfabeto del autómata a evaluar.\n\n"
+         "línea) sobre el alfabeto del autómata a evaluar.\n"
+      << "  [n]          Opcional. Si se indica, se generan todas las cadenas "
+         "de longitud menor o igual que n sobre el alfabeto del autómata "
+         "(incluida la vacía) y se ignora <input.txt>.\n\n"
       << "FORMATO DEL FICHERO .dfa:\n"
       << "  Línea 1: símbolos del alfabeto, sin espacios (ej. ab).\n"
       << "  Línea 2: número total de estados.\n"
@@ -334,4 +337,106 @@ std::vector<int> Automata::EstadosBucle() const {
   std::vector<int> estados_bucle(estados_unicos.begin(), estados_unicos.end());
 
   return estados_bucle;
+}
+
+/**
+ * @brief Funcion que obtiene el conjunto de estados de muerte (absorción) del
+ * autómata.
+ */
+std::vector<int> Automata::EstadosAbsorcion() const {
+  std::vector<int> estados_absorcion;
+
+  for (int estado{0}; estado != cantidad_de_estados_; ++estado) {
+    if (estados_aceptacion_.count(estado) > 0) {
+      continue;
+    }
+
+    bool absorcion{true};
+
+    for (const char simbolo : alfabeto_) {
+      auto iterador_transicion = funcion_transicion_.find({estado, simbolo});
+
+      if (iterador_transicion == funcion_transicion_.end() ||
+          iterador_transicion->second != estado) {
+        absorcion = false;
+        break;
+      }
+    }
+
+    if (absorcion) {
+      estados_absorcion.emplace_back(estado);
+    }
+  }
+  return estados_absorcion;
+}
+
+/**
+ * @brief Función que transforma el DFA actual en uno que reconoce el lenguaje
+ complementario.
+ */
+void Automata::HacerComplementario() {
+  std::set<int> nuevos_estados_aceptacion;
+
+  for (int estado = 0; estado < cantidad_de_estados_; ++estado) {
+    if (estados_aceptacion_.count(estado) == 0) {
+      nuevos_estados_aceptacion.insert(estado);
+    }
+  }
+
+  estados_aceptacion_ = nuevos_estados_aceptacion;
+}
+
+// SESIÓN DE EVALUACIÓN
+
+/**
+ * @brief Función que indica si el DFA acepta una cadena (la cadena vacía es
+ * "").
+ *
+ * @param cadena String a evaluar caracter a caracter
+ */
+bool Automata::Acepta(const std::string& cadena) const {
+  int estado_actual{estado_arranque_};
+
+  for (const char simbolo : cadena) {
+    auto iterador = funcion_transicion_.find({estado_actual, simbolo});
+
+    if (iterador == funcion_transicion_.end()) {
+      return false;
+    }
+    estado_actual = iterador->second;
+  }
+
+  return estados_aceptacion_.count(estado_actual) > 0;
+}
+
+/**
+ * @brief Función que genera todas las cadenas del alfabeto de longitud menor o
+ * igual que n (incluida la vacía), las simula y muestra el resultado y el total
+ * generado.
+ *
+ * @param numero_n Int que representa la longitud máxima de las cadenas a
+ * generar
+ */
+void Automata::GenerarCadenas(int numero_n) const {
+  std::vector<std::string> cadenas_nivel{""};
+  int total{0};
+
+  for (int longitud{0}; longitud <= numero_n; ++longitud) {
+    std::vector<std::string> cadenas_siguiente;
+
+    for (const std::string& cadena : cadenas_nivel) {
+      ++total;
+      std::cout << std::left << std::setw(15) << (cadena.empty() ? "&" : cadena)
+                << (Acepta(cadena) ? "ACEPTADA" : "NO ACEPTADA") << "\n";
+
+      if (longitud < numero_n) {
+        for (const char simbolo : alfabeto_) {
+          cadenas_siguiente.push_back(cadena + simbolo);
+        }
+      }
+    }
+    cadenas_nivel = cadenas_siguiente;
+  }
+
+  std::cout << "\nTotal de cadenas generadas: " << total << "\n";
 }

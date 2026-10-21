@@ -56,6 +56,12 @@ class Automata {
 
   // ESTUDIO PARA LA PRÁCTICA
   std::vector<int> EstadosBucle() const;
+  std::vector<int> EstadosAbsorcion() const;
+  void HacerComplementario();
+
+  // SESIÓN DE EVALUACIÓN
+  bool Acepta(const std::string& cadena) const;
+  void GenerarCadenas(int numero_n) const;
 
  private:
   int cantidad_de_estados_{0};
@@ -64,6 +70,6 @@ class Automata {
   std::set<int> estados_aceptacion_;
   std::map<std::pair<int, char>, int> funcion_transicion_;
   bool automata_invalido_{false};
-};
+}; 
 
 #endif  // DFA_H_
