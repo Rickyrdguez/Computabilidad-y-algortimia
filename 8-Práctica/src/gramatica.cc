@@ -1,3 +1,21 @@
+// Universidad de La Laguna
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
+// Asignatura: Computabilidad y Algoritmia
+// Curso: 2º
+// Práctica 8: Gramática regular a partir de un DFA
+// Autor: Ricardo Jesús Rodríguez Pérez
+// Correo: alu0101797557@ull.edu.es
+// Fecha: 02/11/2026
+//
+// Archivo gramatica.cc: fichero con la implementación de la clase Grammar
+// (construcción de la gramática y escritura del fichero .gra) y de las
+// funciones de ayuda del programa.
+//
+// Historial de revisiones
+// 02/11/2026 - Creación (primera versión) del código
+// 04/11/2026 - Última modificación
+
 #include "clases.h"
 
 /**

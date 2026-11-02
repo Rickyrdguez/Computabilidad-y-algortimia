@@ -1,3 +1,21 @@
+// Universidad de La Laguna
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
+// Asignatura: Computabilidad y Algoritmia
+// Curso: 2º
+// Práctica 8: Gramática regular a partir de un DFA
+// Autor: Ricardo Jesús Rodríguez Pérez
+// Correo: alu0101797557@ull.edu.es
+// Fecha: 02/11/2026
+//
+// Archivo automata.cc: fichero con la implementación de la clase Automata:
+// lectura y validación del fichero .dfa y conversión del DFA a una gramática
+// regular.
+//
+// Historial de revisiones
+// 02/11/2026 - Creación (primera versión) del código
+// 04/11/2026 - Última modificación
+
 #include "clases.h"
 
 /**

@@ -1,3 +1,23 @@
+// Universidad de La Laguna
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
+// Asignatura: Computabilidad y Algoritmia
+// Curso: 2º
+// Práctica 8: Gramática regular a partir de un DFA
+// Autor: Ricardo Jesús Rodríguez Pérez
+// Correo: alu0101797557@ull.edu.es
+// Fecha: 02/11/2026
+//
+// Archivo dfa2grammar.cc: programa principal. Lee la especificación de un DFA
+// desde un fichero .dfa y genera en un fichero .gra una gramática regular que
+// genera el lenguaje reconocido por el autómata.
+//
+// Uso: ./dfa2grammar input.dfa output.gra
+//
+// Historial de revisiones
+// 02/11/2026 - Creación (primera versión) del código
+// 04/11/2026 - Última modificación
+
 #include "clases.h"
 
 int main(int argc, char* argv[]) {
